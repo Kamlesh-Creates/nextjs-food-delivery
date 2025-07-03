@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Restaurantheader from "@/app/_component/reataurantheader";
 import Restaurantfooter from "@/app/_component/restaurantfooter";
+import toast from "react-hot-toast";
 
 const DeliveryPartnerLogin = () => {
   const router = useRouter();
@@ -30,11 +31,11 @@ const handleSubmit = async (e) => {
       localStorage.setItem("deliveryPartnerInfo", JSON.stringify(data.data));
       router.push("/deliverydashboard");
     } else {
-      alert(data.message || "Login failed");
+      toast.error(data.message || "Login failed");
     }
   } catch (err) {
     console.error("Login error:", err);
-    alert("Something went wrong");
+    toast.error("Something went wrong");
   }
 };
 

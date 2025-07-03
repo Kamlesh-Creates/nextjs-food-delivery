@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 function Usersignup() {
   const router = useRouter();
@@ -50,7 +51,7 @@ const handleSubmit = async (e) => {
           isAuthenticated: true,
         };
         localStorage.setItem("Userinfo", JSON.stringify(user));
-        alert("Signup Successful");
+        toast.success("Signup Successful");
 
         const redirectPath = localStorage.getItem("postLoginRedirect") || "/cart";
         localStorage.removeItem("postLoginRedirect");
@@ -58,11 +59,11 @@ const handleSubmit = async (e) => {
         router.push(redirectPath);
       }
     } else {
-      alert("Signup failed: " + (response?.error || "Unknown error"));
+      toast.error("Signup failed: " + (response?.error || "Unknown error"));
     }
   } catch (err) {
     console.error("Signup error:", err);
-    alert("An unexpected error occurred. Please try again.");
+    toast.error("An unexpected error occurred. Please try again.");
   }
 };
 

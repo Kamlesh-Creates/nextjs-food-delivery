@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 function Userlogin() {
   const [email, setEmail] = useState("");
@@ -39,7 +40,7 @@ function Userlogin() {
       delete user.password;
 
       localStorage.setItem("Userinfo", JSON.stringify(user));
-      alert("Login Successful");
+      toast.success("Login Successful");
 
       
       const redirectPath = localStorage.getItem("postLoginRedirect") || "/";
@@ -47,11 +48,11 @@ function Userlogin() {
 
       router.push(redirectPath);
     } else {
-      alert("Login Failed: Invalid credentials");
+      toast.error("Login Failed: Invalid credentials");
     }
   } catch (err) {
     console.error("Login error:", err);
-    alert("An error occurred during login. Please try again.");
+    toast.error("An error occurred during login. Please try again.");
   }
 
   

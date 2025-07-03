@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 function Restaurantsignup() {
   const [email, setemail] = useState("");
@@ -64,14 +65,14 @@ function Restaurantsignup() {
 
       if (response.success && response.data) {
         localStorage.setItem("restaurantUser", JSON.stringify(response.data));
-        alert("Registration Successful");
+        toast.success("Registration Successful");
         router.push("/restaurant/dashboard");
       } else {
-        alert("Registration failed: " + (response.error || "Unknown error"));
+        toast.error("Registration failed: " + (response.error || "Unknown error"));
       }
     } catch (err) { 
       console.error("Signup error:", err);
-      alert("An unexpected error occurred. Please try again.");
+      toast.error("An unexpected error occurred. Please try again.");
     }
   };
 

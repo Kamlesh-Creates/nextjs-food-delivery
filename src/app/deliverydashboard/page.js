@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Deliveryheader from "../_component/deliveryheader";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const DeliveryDashboard = () => {
     const [orders, setOrders] = useState([]);
@@ -36,11 +37,11 @@ const DeliveryDashboard = () => {
         if (data.success) {
           setOrders(data.orders);
         } else {
-          alert("Failed to fetch orders");
+          toast.error("Failed to fetch orders");
         }
       } catch (err) {
         console.error("Error:", err);
-        alert("Something went wrong");
+        toast.error("Something went wrong");
       } finally {
         setLoading(false);
       }
@@ -65,13 +66,13 @@ const DeliveryDashboard = () => {
             order._id === orderId ? { ...order, status: newStatus } : order
           )
         );
-        alert(`Order marked as ${newStatus}`);
+        toast.success(`Order marked as ${newStatus}`);
       } else {
-        alert(data.message || "Failed to update status");
+        console.log(data.message || "Failed to update status");
       }
     } catch (error) {
       console.error("Status update error:", error);
-      alert("Error updating status");
+      toast.error("Error updating status");
     }
   };
 

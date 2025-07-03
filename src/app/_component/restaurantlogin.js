@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 function Restaurantlogin() {
   const [email, setemail] = useState("");
@@ -37,14 +38,14 @@ function Restaurantlogin() {
         delete user.password;
 
         localStorage.setItem("restaurantUser", JSON.stringify(user));
-        alert("Login Successful");
+        toast.success("Login Successful");
         router.push("/restaurant/dashboard");
       } else {
-        alert("Login Failed: Invalid credentials");
+        toast.error("Login Failed: Invalid credentials");
       }
     } catch (err) {
       console.error("Login error:", err);
-      alert("An error occurred during login. Please try again.");
+      toast.error("An error occurred during login. Please try again.");
     }
   };
 

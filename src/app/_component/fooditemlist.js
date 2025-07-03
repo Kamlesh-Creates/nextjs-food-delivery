@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 function Fooditemlist() {
   const [fooditems, setfooditems] = useState([]);
@@ -22,7 +23,7 @@ const loadfooditem = async () => {
     if (data.success) {
       setfooditems(data.result);
     } else {
-      alert("Food items not loaded.");
+      toast.success("Food items not loaded.");
     }
   } catch (error) {
     console.error("Error fetching food items:", error);

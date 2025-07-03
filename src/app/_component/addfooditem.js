@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 function Addfooditem(props) {
   const [foodname, setFoodname] = useState('');
@@ -50,7 +51,7 @@ function Addfooditem(props) {
       console.log("Response from API:", data);
 
       if (data.success) {
-        alert("Food Item Added");
+        toast.success("Food Item Added");
         // Clear form
         setFoodname('');
         setPrice('');
@@ -58,11 +59,11 @@ function Addfooditem(props) {
         setDescription('');
         props.setadditem(false)
       } else {
-        alert("Failed to add food item.");
+        toast.error("Failed to add food item.");
       }
     } catch (error) {
       console.error("Error adding food item:", error);
-      alert("Something went wrong. See console for details.");
+      toast.error("Something went wrong. See console for details.");
     }
   };
 

@@ -5,6 +5,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function EditFoodItemPage() {
    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
@@ -24,7 +25,7 @@ useEffect(() => {
     if (data.success) {
       setFormData(data.result);
     } else {
-      alert("Failed to load food item.");
+      toast.error("Failed to load food item.");
       
     }
   };
@@ -48,11 +49,11 @@ useEffect(() => {
     });
     const data = await res.json();
     if (data.success) {
-      alert("Food item updated!");
+      toast.success("Food item updated!");
       router.push("../dashboard")
      
     } else {
-      alert("Failed to update item.");
+      toast.error("Failed to update item.");
     }
   };
 
