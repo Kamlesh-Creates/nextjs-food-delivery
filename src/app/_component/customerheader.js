@@ -9,30 +9,25 @@ function Customerheader({ triggerUpdate }) {
   const [userData, setUserData] = useState(null);
   const router = useRouter();
 
+  useEffect(() => {
+    const stored = localStorage.getItem("Userinfo");
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
 
- 
- useEffect(() => {
-  const stored = localStorage.getItem("Userinfo");
-  if (stored) {
-    try {
-      const parsed = JSON.parse(stored);
-
-     
-      if (parsed?.isAuthenticated === true) {
-        setUserData(parsed);
-      } else {
-        
+        if (parsed?.isAuthenticated === true) {
+          setUserData(parsed);
+        } else {
+          setUserData(null);
+        }
+      } catch (err) {
+        console.error("Failed to parse Userinfo:", err);
         setUserData(null);
       }
-    } catch (err) {
-      console.error("Failed to parse Userinfo:", err);
+    } else {
       setUserData(null);
     }
-  } else {
-    setUserData(null); 
-  }
-}, []);
-
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -204,16 +199,32 @@ function Customerheader({ triggerUpdate }) {
               </Link>
             </div>
             <div className="flex flex-col space-y-2 mt-2">
-              <Link href="/login">
-                <button className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md text-sm hover:bg-indigo-700">
-                  Login
-                </button>
-              </Link>
-              <Link href="/signup">
-                <button className="w-full px-4 py-2 bg-indigo-600 text-white text-sm rounded-md hover:bg-indigo-700">
-                  Sign Up
-                </button>
-              </Link>
+              {userData ? (
+                <>
+                  <span className="text-gray-800 text-center font-medium">
+                    Hello, {userData.name}
+                  </span>
+                  <button
+                    onClick={Logout}
+                    className="w-full px-4 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link href="/user-auth/login">
+                    <button className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md text-sm hover:bg-indigo-700">
+                      Login
+                    </button>
+                  </Link>
+                  <Link href="/user-auth">
+                    <button className="w-full px-4 py-2 bg-indigo-600 text-white text-sm rounded-md hover:bg-indigo-700">
+                      Sign Up
+                    </button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}
