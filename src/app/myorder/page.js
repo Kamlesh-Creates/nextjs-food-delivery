@@ -7,6 +7,7 @@ import OrderCard from "../_component/ordercard";
 const MyOrdersPage = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -24,7 +25,7 @@ const MyOrdersPage = () => {
 
       try {
         const res = await fetch(
-          `http://localhost:3000/api/order?id=${user._id}`
+          `${baseUrl}/api/order?id=${user._id}`
         );
         const data = await res.json();
         setOrders(data.orders || []);

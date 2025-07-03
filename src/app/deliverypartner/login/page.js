@@ -6,6 +6,7 @@ import Restaurantfooter from "@/app/_component/restaurantfooter";
 
 const DeliveryPartnerLogin = () => {
   const router = useRouter();
+   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
   const [form, setForm] = useState({ number: "", password: "" });
 
   const handleChange = (e) => {
@@ -16,7 +17,7 @@ const handleSubmit = async (e) => {
   e.preventDefault();
 
   try {
-    const res = await fetch("http://localhost:3000/api/deliverypartner/auth", {
+    const res = await fetch(`${baseUrl}/api/deliverypartner/auth`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...form, login: true }),

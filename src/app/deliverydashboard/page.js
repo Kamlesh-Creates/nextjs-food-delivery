@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 const DeliveryDashboard = () => {
     const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
   const router = useRouter();
 
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -28,7 +29,7 @@ const DeliveryDashboard = () => {
 
       try {
         const res = await fetch(
-          `http://localhost:3000/api/deliverypartner/partnerorders/${info._id}`
+          `${baseUrl}/api/deliverypartner/partnerorders/${info._id}`
         );
         const data = await res.json();
 
@@ -50,7 +51,7 @@ const DeliveryDashboard = () => {
 
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
-      const res = await fetch("http://localhost:3000/api/order", {
+      const res = await fetch(`${baseUrl}/api/order`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ orderId, newStatus }),

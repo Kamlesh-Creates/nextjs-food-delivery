@@ -5,6 +5,7 @@ import Link from "next/link";
 
 function Fooditemlist() {
   const [fooditems, setfooditems] = useState([]);
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 
   useEffect(() => {
     loadfooditem();
@@ -15,7 +16,7 @@ const loadfooditem = async () => {
   const resto_id = restodata?._id;
 
   try {
-    const response = await fetch(`http://localhost:3000/api/restaurant/food/${resto_id}`);
+    const response = await fetch(`${baseUrl}/api/restaurant/food/${resto_id}`);
     const data = await response.json();
 
     if (data.success) {
@@ -31,7 +32,7 @@ const loadfooditem = async () => {
 
   const handledeleteitem = async (id) => {
     try {
-      let response = await fetch(`http://localhost:3000/api/restaurant/food/${id}`, {
+      let response = await fetch(`${baseUrl}/api/restaurant/food/${id}`, {
         method: "DELETE",
       });
       response = await response.json();

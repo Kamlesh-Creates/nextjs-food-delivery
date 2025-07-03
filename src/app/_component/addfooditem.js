@@ -6,6 +6,11 @@ function Addfooditem(props) {
   const [imgpath, setimgPath] = useState('');
   const [description, setDescription] = useState('');
 
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+
+
+
+
   const [errors, setErrors] = useState({});
 
   const handleAddItem = async () => {
@@ -27,7 +32,7 @@ function Addfooditem(props) {
     const resto_id = restodata?._id;
 
     try {
-      const response = await fetch("http://localhost:3000/api/restaurant/food", {
+      const response = await fetch(`${baseUrl}/api/restaurant/food`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

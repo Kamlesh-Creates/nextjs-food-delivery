@@ -6,6 +6,7 @@ import Link from "next/link";
 
 function Usersignup() {
   const router = useRouter();
+   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -31,7 +32,7 @@ const handleSubmit = async (e) => {
   try {
     const { name, email, password } = formData;
 
-    const res = await fetch("/api/user", {
+    const res = await fetch(`${baseUrl}/api/user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

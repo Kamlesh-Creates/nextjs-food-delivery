@@ -6,6 +6,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 function Restopage() {
+   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
   const params = useParams();
   const searchParams = useSearchParams();
 
@@ -84,7 +85,7 @@ function Restopage() {
 
   const restodetails = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/customer/${id}`);
+      const response = await fetch(`${baseUrl}/api/customer/${id}`);
       const result = await response.json();
       if (result.success) {
         setFoodData(result.fooditems);

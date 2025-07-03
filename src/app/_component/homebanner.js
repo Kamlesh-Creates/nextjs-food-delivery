@@ -8,6 +8,7 @@ function Homebanner() {
   const [showLocation, setShowLocation] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
   const router = useRouter();
 
   const dropdownRef = useRef();
@@ -27,7 +28,7 @@ function Homebanner() {
 
   const fetchAllRestaurants = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/customer");
+      const res = await fetch(`${baseUrl}/api/customer`);
       const data = await res.json();
       if (data.success) {
         setSearchResults(data.result);
@@ -40,7 +41,7 @@ function Homebanner() {
   const loadLocation = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/api/customer/location"
+        `${baseUrl}/api/customer/location`
       );
       console.log(response)
       const data = await response.json();
@@ -67,7 +68,7 @@ function Homebanner() {
         query = `restaurant=${encodeURIComponent(searchText)}`;
       }
 
-      const res = await fetch(`http://localhost:3000/api/customer?${query}`);
+      const res = await fetch(`${baseUrl}/api/customer?${query}`);
 
       const data = await res.json();
 

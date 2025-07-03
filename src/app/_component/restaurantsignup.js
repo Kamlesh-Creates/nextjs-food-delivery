@@ -14,6 +14,7 @@ function Restaurantsignup() {
   const [imgpath, setimgpath] = useState("");
 
   const [errors, setErrors] = useState({});
+   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
   const router = useRouter();
 
   const validate = () => {
@@ -42,7 +43,7 @@ function Restaurantsignup() {
     if (!validate()) return;
 
     try {
-      const result = await fetch("http://localhost:3000/api/restaurant", {
+      const result = await fetch(`${baseUrl}/api/restaurant`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

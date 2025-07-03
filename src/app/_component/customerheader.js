@@ -9,6 +9,8 @@ function Customerheader({ triggerUpdate }) {
   const [userData, setUserData] = useState(null);
   const router = useRouter();
 
+
+ 
  useEffect(() => {
   const stored = localStorage.getItem("Userinfo");
   if (stored) {

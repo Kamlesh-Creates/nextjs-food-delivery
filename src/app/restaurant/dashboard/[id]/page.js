@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 
 export default function EditFoodItemPage() {
+   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
   const { id } = useParams();
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -18,7 +19,7 @@ export default function EditFoodItemPage() {
 
 useEffect(() => {
   const fetchData = async () => {
-    const res = await fetch(`http://localhost:3000/api/restaurant/food/edit/${id}`); // ✅ updated path
+    const res = await fetch(`${baseUrl}/api/restaurant/food/edit/${id}`); // ✅ updated path
     const data = await res.json();
     if (data.success) {
       setFormData(data.result);
@@ -38,7 +39,7 @@ useEffect(() => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch(`http://localhost:3000/api/restaurant/food/edit/${id}`, {
+    const res = await fetch(`${baseUrl}/api/restaurant/food/edit/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

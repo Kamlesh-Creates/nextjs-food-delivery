@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 const OrderPage = () => {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
+   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
   const router = useRouter();
 
   useEffect(() => {
@@ -55,7 +56,7 @@ const OrderPage = () => {
   // Get delivery partner by city
   let deliveryboyid;
   try {
-    const res = await fetch(`http://localhost:3000/api/deliverypartner/${city}`);
+    const res = await fetch(`${baseUrl}/api/deliverypartner/${city}`);
     const json = await res.json();
     const ids = json.result.map((item) => item._id);
     deliveryboyid = ids[Math.floor(Math.random() * ids.length)];
@@ -117,7 +118,7 @@ const OrderPage = () => {
           paymentId: response.razorpay_payment_id,
         };
 
-        const res = await fetch("http://localhost:3000/api/order", {
+        const res = await fetch(`${baseUrl}/api/order`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(finalOrder),
@@ -150,7 +151,7 @@ const OrderPage = () => {
 
   // Cash on delivery
   try {
-    const res = await fetch("http://localhost:3000/api/order", {
+    const res = await fetch(`${baseUrl}/api/order`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderData),
