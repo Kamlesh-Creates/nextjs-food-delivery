@@ -22,17 +22,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head />
-
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {/* ✅ Google AdSense script */}
+      <head>
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8931064343869054"
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
-
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {/* 💳 Razorpay script */}
         <Script
           src="https://checkout.razorpay.com/v1/checkout.js"
